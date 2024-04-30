@@ -1,0 +1,80 @@
+-> edited 9 previous tests 
+
+Test1
+
+Scenario: User selects 0 quantities for all items and tries to purchase
+Expected Result: User is informed that they must select at least one item to purchase
+Actual Result: User is informed that they must select at least one item to purchase
+Tested by: Entering 0 in all quantity text boxes and clicking the purchase button
+
+Test2
+
+Scenario: User selects 10 quantities for an item but isn't logged in
+Expected Result: User is redirected to login page to sign in before purchasing
+Actual Result: User is redirected to login page to sign in before purchasing
+Tested by: Entering 10 in one quantity text box and clicking the purchase button without being logged in
+
+Test3
+
+Scenario: User selects 1 quantity for all items after logging in
+Expected Result: User is redirected to invoice and quantity is updated
+Actual Result: User is redirected to invoice and quantity is updated
+Tested by: Logging in, entering 1 in all quantity text boxes, and clicking the purchase button
+
+Test4
+
+Scenario: User selects all quantities available for all products and isn't logged in
+Expected Result: User is prompted to login and then the invoice and available quantities are updated
+Actual Result: User is prompted to login and then the invoice and available quantities are updated
+Tested by: Selecting max amount for all items, attempting to purchase, logging in, and then viewing the invoice
+
+Test5
+
+Scenario: User selects different positive quantities for each product after registration
+Expected Result: User is directed to invoice
+Actual Result: User is directed to invoice
+Tested by: Registering a new account, entering different positive numbers in all quantity text boxes, and clicking the purchase button
+
+Test6
+
+Scenario: User reloads page after making a selection
+Expected Result: User selection is still saved
+Actual Result: User selection is still saved
+Tested by: Making a selection, reloading the page, and verifying selections remain
+
+Test7
+
+Scenario: User goes back to store after getting invoice
+Expected Result: User is redirected to store
+Actual Result: User is redirected to store
+Tested by: Completing a purchase and using the browser's back button
+
+Test8
+
+Scenario: User selects no quantities for all items except for one
+Expected Result: User gets an invoice with one product row
+Actual Result: User gets an invoice with one product row
+Tested by: Entering 0 in all quantity text boxes except for one and clicking the purchase button
+Test9
+
+Scenario: User refreshes invoice page
+Expected Result: User's info and selections are still present
+Actual Result: User's info and selections are still present
+Tested by: Completing a purchase, viewing the invoice, and refreshing the page
+
+Test10
+
+Scenario: User selects 2 positive and 2 negative quantities for items
+Expected Result: User is informed that only positive quantities are valid for purchase
+Actual Result: User is informed that only positive quantities are valid for purchase
+Tested by: Entering 2 positives (10, 5) and 2 negatives (-2, -5) in quantity text boxes and attempting to purchase
+
+
+Test11
+
+Scenario: User tries to register with an existing email
+Expected Result: User is informed that the email is already registered and directed to the login page
+Actual Result: User is informed that the email is already registered and directed to the login page
+Tested by: Attempting to register with an email that's already in the user database
+
+-> all tests were successful (yippie!)

@@ -1,0 +1,153 @@
+<script>
+    //  client-side code made with ChatGPT to put email and first name into the query string to make the boxes sticky
+    const params = new URLSearchParams(window.location.search);
+window.onload = function() {
+
+// If we have quantities in the query string, add a new query string to the action of the login form
+if(params.has('quantities')) {
+        registration_form.action = `${registration_form.action}?quantities=${params.get('quantities')}`;
+    }
+
+    //  get the email from the query string that was added in the server.js
+    const emailValue = params.get('email');
+    //  get the full name from the query string that was added in the server.js
+    // from ChatGPT to make the value of the query string as the value of the text boxes
+    const nameValue = params.get('name')
+    if (emailValue) {
+        document.querySelector('input[name="email"]').value = emailValue;
+    }
+    if (nameValue) {
+        document.querySelector('input[name="full_name"]').value = nameValue;
+    }
+    //  making a variable hasErrors using the parameters in the URL that says hasErrors created from the server.js
+    const errors_query = params.get('errors');
+    const errors_decoded = JSON.parse(decodeURIComponent(errors_query));
+    
+    //  check if hasErrors is true, which is should be because we set it to be true if there were any errors in the form
+    if (params.has('errors')) {
+        //  make variable submitButton using the submit but id
+        submitButton = document.getElementById('submit');
+
+        // change the value of the submit button to continue
+        submitButton.value = `Continue`;
+        error_messages_id = document.getElementById('error_messages');
+        const errorMessageArray = [];
+
+    // (Chat GPT) Iterate through each error in the errors object
+    for (const key in errors_decoded) {
+        if (errors_decoded.hasOwnProperty(key)) {
+            // Add each error message to the array
+            errorMessageArray.push(errors_decoded[key]);
+        }
+    }
+
+    // Join the error messages into a single string separated by new lines
+    const errorText = errorMessageArray.join('\n');
+
+    // Display the error messages in the error messages element
+    error_messages_id.textContent = errorText;
+
+    }
+
+};
+</script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #fcd7de 0%, #f3f1f5 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #ffffff; 
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            width: 300px;
+            margin: 100px auto;
+            text-align: center;
+        }
+
+        h1 {
+            color: #630032de; 
+        } 
+
+        .form {
+            background-color: #ffffff; 
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            width: 300px;
+            text-align: center;
+        }
+
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+            background-color: #860043; 
+            color: white;
+            padding: 10px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type=submit]:hover {
+            background-color: #a00050;
+        }
+
+        .message a {
+            color: #ff007f; 
+            text-decoration: none;
+        }
+
+        .message a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="login-page">
+        <div class="form">
+            <form id="registration_form" action="./process_registration_form" method="POST" class="register-form">
+                <div id="error_messages" style="color: red; text-align: left;"></div>
+               <br>
+               <h1>Register Here!</h1>
+                <input type="text" name='email' placeholder="Email Address" />
+                <input type="text" name='full_name' placeholder="Full Name" />
+                <input type="password" name='password' placeholder="Password" />
+                <input type="password" name='password_repeat' placeholder="Repeat Password" />
+                <input type="submit" id="submit" value="Create Account">
+                <p class="message">Already registered? <a href="login.html">Sign In Here!</a></p>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
